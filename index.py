@@ -62,7 +62,7 @@ st.link_button("Go to Policy Definition guide", "https://learn.microsoft.com/en-
 if st.button("List Clusters"):
     w = WorkspaceClient(host=host_name, token=token)
     all = w.clusters.list()
-    st.write(created)
+    st.write(all)
 
 if st.button("List Jobs"):
     w = WorkspaceClient(host=host_name, token=token)
