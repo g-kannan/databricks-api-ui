@@ -37,7 +37,7 @@ with st.expander("Create cluster policy"):
     
     if auto_scale:
         autoscale_min_workers = st.number_input("Minimum workers required",min_value=1,step=1)
-        autoscale_max_workers = st.number_input("Maximum workers required",min_value=2,max_value=4,step=1)
+        autoscale_max_workers = st.number_input("Maximum workers required",min_value=2,max_value=50,step=1)
         policy_def = f"""{{        
         "autotermination_minutes": {{"type": "fixed","value": {auto_term_mins}}},
         "spark_version": {{"type": "fixed","value": "auto:latest-lts"}},
@@ -69,7 +69,7 @@ with st.expander("Create cluster policy"):
             description=v_policy_desc,
             definition=policy_def,
         )
-        st.write(created)
+        st.dataframe(created)
 
 
 
