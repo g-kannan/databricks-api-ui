@@ -77,7 +77,7 @@ with st.expander("Create cluster policy"):
 if st.button("List cluster policy"):
     w = WorkspaceClient(host=host_name, token=token)
     list_cluster_policies = w.cluster_policies.list()
-    st.dataframe(list_cluster_policies,column_order=("created_at_timestamp","policy_id","Name","is_default","description","definition"),use_container_width=True)
+    st.dataframe(list_cluster_policies,column_order=("created_at_timestamp","policy_id","name","is_default","description","definition"),use_container_width=True)
     
 
 if st.button("List Clusters"):
