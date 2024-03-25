@@ -40,7 +40,7 @@ with st.expander("Create cluster policy"):
         autoscale_max_workers = st.number_input("Maximum workers required",min_value=2,max_value=50,step=1)
         policy_def = f"""{{        
         "autotermination_minutes": {{"type": "fixed","value": {auto_term_mins}}},
-        "spark_version": {{"type": "fixed","value": "auto:latest-lts"}},
+        "spark_version": {{"type": "unlimited","defaultValue": "auto:latest-lts"}},
         "runtime_engine": {{"type": "fixed","value": "{v_runtime}","hidden": true}},
         "azure_attributes.availability": {{"type": "fixed","value": "{availability_mode}","hidden": false}},
         "autoscale.min_workers": {{"type": "fixed", "value": {autoscale_min_workers}}},
@@ -50,7 +50,7 @@ with st.expander("Create cluster policy"):
     else:
         policy_def = f"""{{        
         "autotermination_minutes": {{"type": "fixed","value": {auto_term_mins}}},
-        "spark_version": {{"type": "fixed","value": "auto:latest-lts"}},
+        "spark_version": {{"type": "unlimited","defaultValue": "auto:latest-lts"}},
         "runtime_engine": {{"type": "fixed","value": "{v_runtime}","hidden": true}},
         "azure_attributes.availability": {{"type": "fixed","value": "{availability_mode}","hidden": false}},
         "spark_conf.spark.databricks.cluster.profile": {{"type": "fixed","value": "singleNode","hidden": true}},
