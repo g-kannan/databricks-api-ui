@@ -63,7 +63,6 @@ with st.expander("Create cluster policy"):
         st.code(policy_def, language='json')
         
     if st.button("Create"):
-        st.write(policy_def)
         w = WorkspaceClient(host=host_name, token=token)
 
         created = w.cluster_policies.create(
@@ -71,7 +70,7 @@ with st.expander("Create cluster policy"):
             description=v_policy_desc,
             definition=policy_def,
         )
-        st.dataframe(created)
+        st.write(created)
 
 
 
