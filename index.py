@@ -82,17 +82,17 @@ if st.button("List cluster policy"):
 if st.button("List Clusters"):
     w = WorkspaceClient(host=host_name, token=token)
     all = w.clusters.list()
-    st.write(all)
+    st.dataframe(all)
 
 if st.button("List Jobs"):
     w = WorkspaceClient(host=host_name, token=token)
     job_list = w.jobs.list(expand_tasks=False)
-    st.write(job_list)
+    st.dataframe(job_list)
 
 if st.button("List Catalog"):
     w = WorkspaceClient(host=host_name, token=token)
     all = w.metastores.list()
-    st.table(all)
+    st.dataframe(all)
     
 st.info(
     """
