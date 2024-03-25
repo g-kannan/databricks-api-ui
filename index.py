@@ -16,9 +16,6 @@ st.write(
 host_name = st.text_input("Enter Databricks URL")
 token = st.text_input("Enter token", type="password")
 
-
-
-
 with st.expander("Create cluster policy"):
     v_policy_name = st.text_input("Enter name for Policy")
     auto_term_mins = st.number_input("Enter Idle Minutes to Terminate cluster",min_value=10,step=1)
@@ -72,6 +69,13 @@ with st.expander("Create cluster policy"):
 
 st.link_button("Go to Policy Definition guide", "https://learn.microsoft.com/en-us/azure/databricks/administration-guide/clusters/policy-definition")
 
+if st.button("List cluster policy"):
+    w = WorkspaceClient(host=host_name, token=token)
+    all = w.cluster_policies.list()
+    st.write(type(all))
+    st.table(all)
+    
+
 if st.button("List Clusters"):
     w = WorkspaceClient(host=host_name, token=token)
     all = w.clusters.list()
@@ -86,9 +90,11 @@ if st.button("List Catalog"):
     w = WorkspaceClient(host=host_name, token=token)
     all = w.metastores.list()
     st.table(all)
-
-
-if st.button("list cluster policy"):
-    w = WorkspaceClient(host=host_name, token=token)
-    all = w.cluster_policies.list()
-    st.table(all)
+    
+st.info(
+    """
+    Need a feature that's not on here?
+    [Let us know by opening a GitHub issue!](https://github.com/g-kannan/databricks-api-ui/issues)
+    """,
+    icon="👾",
+)
