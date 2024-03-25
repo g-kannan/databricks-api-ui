@@ -2,9 +2,22 @@ import streamlit as st
 from databricks.sdk import WorkspaceClient
 from databricks.sdk.service import compute
 
-st.set_page_config(layout="wide")
+st.set_page_config("Litbricks", "https://streamlit.io/favicon.svg",layout="wide")
+st.image("https://streamlit.io/images/brand/streamlit-mark-color.png", width=78)
+
+st.write(
+    """
+    # LitBricks
+
+    Welcome to LitBricks! 👋 This app helps to work with Databricks API easily via Streamlit ✨
+    """
+)
+
 host_name = st.text_input("Enter Databricks URL")
 token = st.text_input("Enter token", type="password")
+
+
+
 
 with st.expander("Create cluster policy"):
     v_policy_name = st.text_input("Enter name for Policy")
