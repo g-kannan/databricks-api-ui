@@ -9,7 +9,7 @@ st.write(
     """
     # LitBricks
 
-    Welcome to LitBricks! 👋 This app helps to work with Azure Databricks API easily via Streamlit ✨
+    Welcome to LitBricks! 👋 This app helps to work with Azure Databricks SDK easily via Streamlit ✨
     """
 )
 
