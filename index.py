@@ -18,6 +18,7 @@ token = st.text_input("Enter token", type="password")
 
 with st.expander("Create cluster policy"):
     st.markdown("*NOTE:* Policies require the Premium plan")
+    st.link_button("Go to Policy Definition guide", "https://learn.microsoft.com/en-us/azure/databricks/administration-guide/clusters/policy-definition")
     v_policy_name = st.text_input("Policy name")
     v_policy_desc = st.text_input("Policy description")
     auto_term_mins = st.number_input("Idle Minutes to Terminate cluster",min_value=10,step=1)
@@ -70,12 +71,12 @@ with st.expander("Create cluster policy"):
         )
         st.write(created)
 
-st.link_button("Go to Policy Definition guide", "https://learn.microsoft.com/en-us/azure/databricks/administration-guide/clusters/policy-definition")
+
 
 if st.button("List cluster policy"):
     w = WorkspaceClient(host=host_name, token=token)
     list_cluster_policies = w.cluster_policies.list()
-    st.dataframe(list_cluster_policies,column_order=("created_at_timestamp","policy_id","Name","is_default","description","definition"))
+    st.dataframe(list_cluster_policies,column_order=("created_at_timestamp","policy_id","Name","is_default","description","definition"),use_container_width=True)
     
 
 if st.button("List Clusters"):
