@@ -17,8 +17,10 @@ host_name = st.text_input("Enter Databricks URL")
 token = st.text_input("Enter token", type="password")
 
 with st.expander("Create cluster policy"):
-    v_policy_name = st.text_input("Enter name for Policy")
-    auto_term_mins = st.number_input("Enter Idle Minutes to Terminate cluster",min_value=10,step=1)
+    st.markdown("*NOTE:* Policies require the Premium plan")
+    v_policy_name = st.text_input("Policy name")
+    v_policy_desc = st.text_input("Policy description")
+    auto_term_mins = st.number_input("Idle Minutes to Terminate cluster",min_value=10,step=1)
     photon_required = st.selectbox("Photon Required?",("Yes",'No'))
     spot_usage = st.checkbox("Use Spot Instances")
     if spot_usage:
@@ -33,8 +35,8 @@ with st.expander("Create cluster policy"):
         v_runtime = "STANDARD"
     
     if auto_scale:
-        autoscale_min_workers = st.number_input("Enter Minimum workers required",min_value=1,step=1)
-        autoscale_max_workers = st.number_input("Enter Maximum workers required",min_value=2,max_value=4,step=1)
+        autoscale_min_workers = st.number_input("Minimum workers required",min_value=1,step=1)
+        autoscale_max_workers = st.number_input("Maximum workers required",min_value=2,max_value=4,step=1)
         policy_def = f"""{{        
         "autotermination_minutes": {{"type": "fixed","value": {auto_term_mins}}},
         "spark_version": {{"type": "fixed","value": "auto:latest-lts"}},
@@ -63,6 +65,7 @@ with st.expander("Create cluster policy"):
 
         created = w.cluster_policies.create(
             name=v_policy_name,
+            description=v_policy_desc,
             definition=policy_def,
         )
         st.write(created)
@@ -71,9 +74,8 @@ st.link_button("Go to Policy Definition guide", "https://learn.microsoft.com/en-
 
 if st.button("List cluster policy"):
     w = WorkspaceClient(host=host_name, token=token)
-    all = w.cluster_policies.list()
-    st.write(type(all))
-    st.table(all)
+    list_cluster_policies = w.cluster_policies.list()
+    st.dataframe(list_cluster_policies,column_order=("created_at_timestamp","policy_id","Name","is_default","description","definition"))
     
 
 if st.button("List Clusters"):
