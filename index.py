@@ -17,7 +17,7 @@ host_name = st.text_input("Enter Databricks URL")
 token = st.text_input("Enter token", type="password")
 
 with st.expander("Create cluster policy"):
-    st.markdown("*NOTE:* Policies require the Premium plan")
+    st.info('*NOTE:* Policies require the Premium plan', icon="ℹ️")
     st.link_button("Go to Policy Definition guide", "https://learn.microsoft.com/en-us/azure/databricks/administration-guide/clusters/policy-definition")
     v_policy_name = st.text_input("Policy name")
     v_policy_desc = st.text_input("Policy description")
@@ -59,7 +59,9 @@ with st.expander("Create cluster policy"):
     
 
     # json_data = json.dumps(policy_def)
-    
+    if st.button("View Policy Definition JSON"):
+        st.code(policy_def, language='json')
+        
     if st.button("Create"):
         st.write(policy_def)
         w = WorkspaceClient(host=host_name, token=token)
